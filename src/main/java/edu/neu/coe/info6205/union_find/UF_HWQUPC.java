@@ -250,6 +250,26 @@ public class UF_HWQUPC implements UF {
 			int count=u.components();
 			System.out.println("Numbers => " +n + "= Pairs => " +pair + " Count => "+count);
 		}
+		for(int n=500;n<=2048000;n=n*2) {
+
+			UF_HWQUPC u = new UF_HWQUPC(n, false);
+
+			int pair=0;
+			for(int i=0;i<=n-1;i++) {
+				int j,k;
+
+				while(u.components()!=1) {
+					j=r.nextInt(n);
+					k=r.nextInt(n);
+					pair=pair+1;
+					if(!u.connected(k, j)) {
+						u.union(j, k);
+						
+					}
+				}
+			}
+			System.out.println("Numbers => " +n + "= Pairs => " +pair);
+		}
 	}
 } 
 
