@@ -16,7 +16,7 @@ import java.util.Scanner;
 /**
  * Height-weighted Quick Union with Path Compression
  */
-public class UF_HWQUPC implements UF {
+public class WeightedUnionAlternative implements UF {
 	/**
 	 * Ensure that site p is connected to site q,
 	 *
@@ -36,7 +36,7 @@ public class UF_HWQUPC implements UF {
 	 * @param pathCompression whether to use path compression
 	 * @throws IllegalArgumentException if {@code n < 0}
 	 */
-	public UF_HWQUPC(int n, boolean pathCompression) {
+	public WeightedUnionAlternative(int n, boolean pathCompression) {
 		count = n;
 		parent = new int[n];
 		height = new int[n];
@@ -56,7 +56,7 @@ public class UF_HWQUPC implements UF {
 	 * @param n the number of sites
 	 * @throws IllegalArgumentException if {@code n < 0}
 	 */
-	public UF_HWQUPC(int n) {
+	public WeightedUnionAlternative(int n) {
 		this(n, true);
 	}
 
@@ -199,8 +199,12 @@ public class UF_HWQUPC implements UF {
 	 */
 	private void doPathCompression(int i) {
 		// TO BE IMPLEMENTED update parent to value of grandparent
-		int g=getParent(getParent(i));
+		while(i!=getParent(i)){
+		int p=getParent(i);
+		int g=getParent(p);
 		updateParent(i, g);
+		i=p;
+		}
 
 	}
 
@@ -228,7 +232,8 @@ public class UF_HWQUPC implements UF {
 					}
 				}
 			}
-			System.out.println("Numbers => " +n + "= Pairs => " +pair);
+			int count=u.components();
+			System.out.println("Numbers => " +n + "= Pairs => " +pair + " Count => "+count);
 		}
 		System.out.println("");
 		// Number of pairs generated till n-1 objects
@@ -269,8 +274,11 @@ public class UF_HWQUPC implements UF {
 						
 					}
 				}
+				
 			}
-			System.out.println("Numbers => " +n + "= Pairs => " +pair);
+			int c=u.components();
+			System.out.println("Numbers => " +n + "= Pairs => " +pair + " Trees => "+c);
+			
 		}
 	}
 } 
